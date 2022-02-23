@@ -11,17 +11,13 @@ import FileHound from 'filehound';
 //fs.writeFileSync(outputfile, JSON.stringify(obj, null, 2));
 };*/
 
-const getJsonFiles = () =>
-  FileHound.create().paths('./').match('*.json').find();
-const getYamlFiles = () =>
-  FileHound.create().paths('./').match('*.yaml').find();
-const getTomlFiles = () =>
-  FileHound.create().paths('./').match('*.toml').find();
+export const findConfigFiles = () => {
+  const getJsonFiles = () =>
+    FileHound.create().paths('./').match('*.json').find();
+  const getYamlFiles = () =>
+    FileHound.create().paths('./').match('*.yaml').find();
+  const getTomlFiles = () =>
+    FileHound.create().paths('./').match('*.toml').find();
 
-const configFilesPromise = Promise.all([
-  getJsonFiles(),
-  getYamlFiles(),
-  getTomlFiles()
-]);
-// eslint-disable-next-line no-console
-configFilesPromise.then((files) => console.log(files.flat()));
+  return Promise.all([getJsonFiles(), getYamlFiles(), getTomlFiles()]);
+};
