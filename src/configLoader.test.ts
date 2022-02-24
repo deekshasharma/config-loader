@@ -22,7 +22,7 @@ describe('Test findConfigFiles', () => {
           expect(files.toml).toHaveLength(1);
         })
         .finally(() => {
-          rimraf(directory, () => done());
+          rimraf(directory, () => done()); //Delete the temp directory at the end of the test.
         });
     });
   });
