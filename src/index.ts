@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import { convertTomlToJson } from './tomlToJson';
 import path from 'path';
-import { findConfigFiles } from './configLoader';
+import { findConfigFiles, yaml2Json } from './configLoader';
 
 /**
  * Read JSON file
@@ -24,4 +25,10 @@ findConfigFiles('./src').then((allFiles) => {
     }, {});
   });
   mergedConfigPromise.then((config) => console.log(config));
+});
+
+findConfigFiles('./').then((allFiles) => {
+  const yamlFiles = allFiles.yaml;
+  const json = yaml2Json(yamlFiles[0]);
+  console.log(JSON.stringify(json));
 });
