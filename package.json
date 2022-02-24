@@ -53,11 +53,11 @@
     "express-winston": "^4.2.0",
     "filehound": "^1.17.5",
     "lodash": "^4.17.21",
+    "toml": "^3.0.0",
     "winston": "^3.3.3"
   },
   "lint-staged": {
     "src/*.{js,ts}": [
-      "npm run lint",
       "npm run prettify"
     ]
   }
