@@ -1,6 +1,6 @@
 import ErrnoException = NodeJS.ErrnoException;
-const toml = require('toml'); //TODO: Use import instead of require
-const fs = require('fs'); //TODO: Use import instead of require
+const toml = require('toml');
+const fs = require('fs');
 
 export const convertTomlToJson = async (path: string, fileName: string) => {
   return new Promise((resolve, reject) => {
