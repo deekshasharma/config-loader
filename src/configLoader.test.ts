@@ -2,7 +2,7 @@ import { tmpdir } from 'os';
 import fs, { mkdtemp } from 'fs';
 import { sep } from 'path';
 import rimraf from 'rimraf';
-import { findConfigFiles } from './configLoader';
+import { findConfigFiles, yaml2Json } from './configLoader';
 
 describe('Test findConfigFiles', () => {
   it('finds all files in flat directory', (done) => {
@@ -54,6 +54,22 @@ describe('Test findConfigFiles', () => {
             });
         });
       });
+    });
+  });
+});
+
+describe('Test Yaml2Json', () => {
+  it('reads JSON file with flat structure correctly', () => {
+    const tmpDir = tmpdir();
+    const tmpDirPath = `${tmpDir}${sep}`;
+    mkdtemp(tmpDirPath, (err, directory) => {
+      const json = { hello: 1, world: '2' };
+      const jsonFilePath = `${directory}/one.json`;
+      fs.writeFileSync(jsonFilePath, JSON.stringify(json));
+      const jsonObject = yaml2Json(jsonFilePath) as object;
+      expect(Object.entries(jsonObject).length).toEqual(2);
+      expect(jsonObject).toHaveProperty('hello', 1);
+      expect(jsonObject).toHaveProperty('world', '2');
     });
   });
 });

@@ -1,4 +1,6 @@
 import FileHound from 'filehound';
+import yaml from 'js-yaml';
+import fs from 'fs';
 
 type ConfigFileInterface = {
   json: string[];
@@ -23,4 +25,8 @@ export const findConfigFiles = (path = './'): Promise<ConfigFileInterface> => {
       };
     }
   );
+};
+
+export const yaml2Json = (inputFilePath: string) => {
+  return yaml.load(fs.readFileSync(inputFilePath, { encoding: 'utf-8' }));
 };
