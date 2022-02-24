@@ -59,7 +59,7 @@ describe('Test findConfigFiles', () => {
 });
 
 describe('Test Yaml2Json', () => {
-  it('reads JSON file with flat structure correctly', () => {
+  it('reads YAML file with flat structure correctly', () => {
     const tmpDir = tmpdir();
     const tmpDirPath = `${tmpDir}${sep}`;
     mkdtemp(tmpDirPath, (err, directory) => {
@@ -73,7 +73,7 @@ describe('Test Yaml2Json', () => {
     });
   });
 
-  it('reads JSON file with nested structure correctly', () => {
+  it('reads YAML file with nested structure correctly', () => {
     const tmpDir = tmpdir();
     const tmpDirPath = `${tmpDir}${sep}`;
     type Nested = {
