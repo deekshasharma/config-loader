@@ -76,16 +76,34 @@ describe('Test Yaml2Json', () => {
   it('reads JSON file with nested structure correctly', () => {
     const tmpDir = tmpdir();
     const tmpDirPath = `${tmpDir}${sep}`;
+    type Nested = {
+      fruit: string;
+      color: {
+        base: string;
+        stripe: string;
+      };
+    };
+    type JsonType = {
+      hello: number;
+      world: string;
+      nested: Nested;
+    };
     mkdtemp(tmpDirPath, (err, directory) => {
-      const json = {
+      const json: JsonType = {
         hello: 1,
         world: '2',
         nested: { fruit: 'banana', color: { base: 'yellow', stripe: 'black' } }
       };
       const jsonFilePath = `${directory}/one.json`;
       fs.writeFileSync(jsonFilePath, JSON.stringify(json));
-      const jsonObject = yaml2Json(jsonFilePath) as object;
+      const jsonObject = yaml2Json(jsonFilePath) as JsonType;
       expect(Object.entries(jsonObject).length).toBe(3);
+      expect(jsonObject).toHaveProperty('hello', 1);
+      expect(jsonObject).toHaveProperty('world', '2');
+      expect(jsonObject).toHaveProperty('nested');
+      expect(jsonObject.nested).toHaveProperty('fruit', 'banana');
+      expect(jsonObject.nested.color).toHaveProperty('base', 'yellow');
+      expect(jsonObject.nested.color).toHaveProperty('stripe', 'black');
     });
   });
 });
