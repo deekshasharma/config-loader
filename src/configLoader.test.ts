@@ -11,9 +11,9 @@ describe('Test findConfigFiles', () => {
     mkdtemp(tmpDirPath, (err, directory) => {
       if (err) throw err;
       expect(fs.existsSync(directory)).toBeTruthy();
-      fs.closeSync(fs.openSync(`${directory}/one.json`, 'w'));
-      fs.closeSync(fs.openSync(`${directory}/two.yaml`, 'w'));
-      fs.closeSync(fs.openSync(`${directory}/three.toml`, 'w'));
+      fs.writeFileSync(`${directory}/one.json`, '');
+      fs.writeFileSync(`${directory}/two.yaml`, '');
+      fs.writeFileSync(`${directory}/three.toml`, '');
       findConfigFiles(directory)
         .then((files) => {
           expect(Object.entries(files).length).toEqual(3);
@@ -33,14 +33,14 @@ describe('Test findConfigFiles', () => {
     mkdtemp(tmpDirPath, (err, directory) => {
       if (err) throw err;
       expect(fs.existsSync(directory)).toBeTruthy();
-      fs.closeSync(fs.openSync(`${directory}/one.json`, 'w'));
+      fs.writeFileSync(`${directory}/one.json`, '');
 
       mkdtemp(`${directory}/l1`, (err, l1Dir) => {
         expect(fs.existsSync(l1Dir)).toBeTruthy();
-        fs.closeSync(fs.openSync(`${l1Dir}/two.yaml`, 'w'));
+        fs.writeFileSync(`${l1Dir}/two.yaml`, '');
         mkdtemp(`${l1Dir}/l2`, (err, l2Dir) => {
           expect(fs.existsSync(l2Dir)).toBeTruthy();
-          fs.closeSync(fs.openSync(`${l2Dir}/three.toml`, 'w'));
+          fs.writeFileSync(`${l2Dir}/three.toml`, '');
 
           findConfigFiles(directory)
             .then((files) => {
