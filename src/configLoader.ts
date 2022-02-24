@@ -20,5 +20,13 @@ export const findConfigFiles = () => {
   const getTomlFiles = () =>
     FileHound.create().paths('./').match('*.toml').find();
 
-  return Promise.all([getJsonFiles(), getYamlFiles(), getTomlFiles()]);
+  return Promise.all([getJsonFiles(), getYamlFiles(), getTomlFiles()]).then(
+    (files) => {
+      return {
+        json: files[0],
+        yaml: files[1],
+        toml: files[2]
+      };
+    }
+  );
 };
