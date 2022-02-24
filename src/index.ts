@@ -1,4 +1,4 @@
-import { convertTomlToJson, readJSONFile } from './tomlToJson';
+import { convertTomlToJson } from './tomlToJson';
 import path from 'path';
 import { findConfigFiles } from './configLoader';
 
@@ -21,10 +21,22 @@ import { findConfigFiles } from './configLoader';
 // readJSONFile(jsonFilePath, jsonFileName);
 
 findConfigFiles('./src').then((allFiles) => {
-  const jsonFiles = allFiles.json;
   const tomlFiles = allFiles.toml;
-  const yamlFiles = allFiles.yaml;
-  console.log(`JSON Files ->`, jsonFiles);
-  console.log(`TOML Files ->`, tomlFiles);
-  console.log(`YAML Files ->`, yamlFiles);
+  // console.log(`TOML Files ->`, tomlFiles);
+  const resultingConfig = tomlFiles.reduce(
+    async (acc: any = {}, currentFile) => {
+      const fileExtension = path.extname(currentFile);
+      const fileName = path.basename(currentFile, fileExtension);
+      // return convertTomlToJson(currentFile, fileName, (config) => {
+      //   acc[fileName] = config;
+      //   return acc;
+      // })
+      const config = await convertTomlToJson(currentFile, fileName);
+      acc[fileName] = config;
+      return acc;
+    },
+    {}
+  );
+  resultingConfig.then((r: any) => console.log(JSON.stringify(r)));
+  // console.log(`resultingConfig , ${resultingConfig}`)
 });
