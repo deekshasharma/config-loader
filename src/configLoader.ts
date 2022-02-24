@@ -12,13 +12,13 @@ export const yaml2Json = () => {
   //fs.writeFileSync(outputfile, JSON.stringify(obj, null, 2));
 };
 
-export const findConfigFiles = () => {
+export const findConfigFiles = (path = './') => {
   const getJsonFiles = () =>
-    FileHound.create().paths('./').match('*.json').find();
+    FileHound.create().paths(path).match('*.json').find();
   const getYamlFiles = () =>
-    FileHound.create().paths('./').match('*.yaml').find();
+    FileHound.create().paths(path).match('*.yaml').find();
   const getTomlFiles = () =>
-    FileHound.create().paths('./').match('*.toml').find();
+    FileHound.create().paths(path).match('*.toml').find();
 
   return Promise.all([getJsonFiles(), getYamlFiles(), getTomlFiles()]).then(
     (files) => {
