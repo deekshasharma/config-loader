@@ -13,6 +13,8 @@ export const yaml2Json = () => {
 };
 
 export const findConfigFiles = (path = './') => {
+  // eslint-disable-next-line no-console
+  console.log(`finding files in ${path}`);
   const getJsonFiles = () =>
     FileHound.create().paths(path).match('*.json').find();
   const getYamlFiles = () =>
