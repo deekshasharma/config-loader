@@ -1,11 +1,17 @@
 import FileHound from 'filehound';
 
-export const findConfigFiles = (path = './') => {
-  const getJsonFiles = () =>
+type ConfigFileInterface = {
+  json: string[];
+  yaml: string[];
+  toml: string[];
+};
+
+export const findConfigFiles = (path = './'): Promise<ConfigFileInterface> => {
+  const getJsonFiles = (): Promise<string[]> =>
     FileHound.create().paths(path).match('*.json').find();
-  const getYamlFiles = () =>
+  const getYamlFiles = (): Promise<string[]> =>
     FileHound.create().paths(path).match('*.yaml').find();
-  const getTomlFiles = () =>
+  const getTomlFiles = (): Promise<string[]> =>
     FileHound.create().paths(path).match('*.toml').find();
 
   return Promise.all([getJsonFiles(), getYamlFiles(), getTomlFiles()]).then(
