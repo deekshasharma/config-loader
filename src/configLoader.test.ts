@@ -72,4 +72,20 @@ describe('Test Yaml2Json', () => {
       expect(jsonObject).toHaveProperty('world', '2');
     });
   });
+
+  it('reads JSON file with nested structure correctly', () => {
+    const tmpDir = tmpdir();
+    const tmpDirPath = `${tmpDir}${sep}`;
+    mkdtemp(tmpDirPath, (err, directory) => {
+      const json = {
+        hello: 1,
+        world: '2',
+        nested: { fruit: 'banana', color: { base: 'yellow', stripe: 'black' } }
+      };
+      const jsonFilePath = `${directory}/one.json`;
+      fs.writeFileSync(jsonFilePath, JSON.stringify(json));
+      const jsonObject = yaml2Json(jsonFilePath) as object;
+      expect(Object.entries(jsonObject).length).toBe(3);
+    });
+  });
 });
