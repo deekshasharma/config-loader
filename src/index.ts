@@ -1,15 +1,6 @@
-import { convertJsonToObject, convertTomlToJson } from './tomlToJson';
+import { convertToJson } from './toJson';
 import path from 'path';
 import { findConfigFiles } from './configLoader';
-
-/**
- * Read JSON file
- */
-// const jsonFilePath =
-//   '/Users/deekshasharma/Desktop/mindgrep/config-loader/src/sample.json';
-// const extensionJson = path.extname(jsonFilePath);
-// const jsonFileName = path.basename(jsonFilePath, extensionJson);
-// readJSONFile(jsonFilePath, jsonFileName);
 
 findConfigFiles('./src').then((allFiles) => {
   const tomlFiles = allFiles.toml;
@@ -17,13 +8,13 @@ findConfigFiles('./src').then((allFiles) => {
   const allTomlPromises = tomlFiles.map(async (currentFile) => {
     const fileExtension = path.extname(currentFile);
     const fileName = path.basename(currentFile, fileExtension);
-    return await convertTomlToJson(currentFile, fileName);
+    return await convertToJson(currentFile, fileName, fileExtension);
   });
 
   const allJsonPromises = jsonFiles.map(async (currentFile) => {
     const fileExtension = path.extname(currentFile);
     const fileName = path.basename(currentFile, fileExtension);
-    return await convertJsonToObject(currentFile, fileName);
+    return await convertToJson(currentFile, fileName, fileExtension);
   });
 
   const mergedConfigPromise = Promise.all([
