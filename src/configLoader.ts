@@ -1,15 +1,16 @@
 import FileHound from 'filehound';
+import yaml from 'js-yaml';
+import fs from 'fs';
 
-/*const yaml2Json = () => {
-  var inputfile = "infra.yaml",
+export const yaml2Json = () => {
+  const inputfile = 'infra.yaml',
     //outputfile = 'output.json',
-    yaml = require("js-yaml"),
-    fs = require("fs"),
-    obj = yaml.load(fs.readFileSync(inputfile, { encoding: "utf-8" }));
+    obj = yaml.load(fs.readFileSync(inputfile, { encoding: 'utf-8' }));
+  // eslint-disable-next-line no-console
   console.log(JSON.stringify(obj));
-// this code if you want to save
-//fs.writeFileSync(outputfile, JSON.stringify(obj, null, 2));
-};*/
+  // this code if you want to save
+  //fs.writeFileSync(outputfile, JSON.stringify(obj, null, 2));
+};
 
 export const findConfigFiles = () => {
   const getJsonFiles = () =>
