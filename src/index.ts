@@ -1,4 +1,4 @@
-import { convertTomlToJson } from './tomlToJson';
+import { convertJsonToObject, convertTomlToJson } from './tomlToJson';
 import path from 'path';
 import { findConfigFiles } from './configLoader';
 
@@ -13,15 +13,26 @@ import { findConfigFiles } from './configLoader';
 
 findConfigFiles('./src').then((allFiles) => {
   const tomlFiles = allFiles.toml;
-  const allConfigPromises = tomlFiles.map(async (currentFile) => {
+  const jsonFiles = allFiles.json;
+  const allTomlPromises = tomlFiles.map(async (currentFile) => {
     const fileExtension = path.extname(currentFile);
     const fileName = path.basename(currentFile, fileExtension);
     return await convertTomlToJson(currentFile, fileName);
   });
-  const mergedConfigPromise = Promise.all(allConfigPromises).then((values) => {
+
+  const allJsonPromises = jsonFiles.map(async (currentFile) => {
+    const fileExtension = path.extname(currentFile);
+    const fileName = path.basename(currentFile, fileExtension);
+    return await convertJsonToObject(currentFile, fileName);
+  });
+
+  const mergedConfigPromise = Promise.all([
+    ...allTomlPromises,
+    ...allJsonPromises
+  ]).then((values) => {
     return values.reduce((acc: any, value) => {
       return Object.assign({ ...acc }, value);
     }, {});
   });
-  mergedConfigPromise.then((config) => console.log(config));
+  mergedConfigPromise.then((config) => console.log(JSON.stringify(config)));
 });

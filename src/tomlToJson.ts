@@ -11,14 +11,11 @@ export const convertTomlToJson = async (path: string, fileName: string) => {
   });
 };
 
-// export const readJSONFile = (path: string, fileName: string) => {
-//   fs.readFile(path, 'utf8', (err: ErrnoException | null, data: string) => {
-//     if (err) {
-//       return;
-//     }
-//     const data2 = {
-//       [fileName]: JSON.parse(data)
-//     };
-//     console.log(data2);
-//   });
-// };
+export const convertJsonToObject = async (path: string, fileName: string) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, (err: ErrnoException | null, data: string) => {
+      if (err) reject(`Error handling file, ${err}`);
+      resolve({ [fileName]: JSON.parse(data) });
+    });
+  });
+};
