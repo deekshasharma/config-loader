@@ -1,10 +1,11 @@
-import { convertToJson } from './toJson';
+import { convertToJson, yaml2Json } from './toJson';
 import path from 'path';
 import { findConfigFiles } from './configLoader';
 
 findConfigFiles('./src').then((allFiles) => {
   const tomlFiles = allFiles.toml;
   const jsonFiles = allFiles.json;
+  const yamlFiles = allFiles.yaml;
   const allTomlPromises = tomlFiles.map(async (currentFile) => {
     const fileExtension = path.extname(currentFile);
     const fileName = path.basename(currentFile, fileExtension);
@@ -17,9 +18,16 @@ findConfigFiles('./src').then((allFiles) => {
     return await convertToJson(currentFile, fileName, fileExtension);
   });
 
+  const allYamlPromises = yamlFiles.map((currentFile) => {
+    // const fileExtension = path.extname(currentFile);
+    // const fileName = path.basename(currentFile, fileExtension);
+    return yaml2Json(currentFile);
+  });
+
   const mergedConfigPromise = Promise.all([
     ...allTomlPromises,
-    ...allJsonPromises
+    ...allJsonPromises,
+    ...allYamlPromises
   ]).then((values) => {
     return values.reduce((acc: any, value) => {
       return Object.assign({ ...acc }, value);
