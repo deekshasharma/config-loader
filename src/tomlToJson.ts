@@ -3,30 +3,27 @@ import ErrnoException = NodeJS.ErrnoException;
 const toml = require('toml');
 const fs = require('fs');
 
-export const convertTomlToJson = (path: string) => {
+export const convertTomlToJson = (path: string, fileName: string) => {
   fs.readFile(path, 'utf8', (err: ErrnoException | null, data: string) => {
     if (err) {
-      // console.error(err)
       return;
     }
     const data2 = toml.parse(data);
     const json = {
-      collect: JSON.parse(JSON.stringify(data2))
+      [fileName]: JSON.parse(JSON.stringify(data2))
     };
     console.log(json);
   });
 };
 
-export const readJSONFile = (path: string) => {
+export const readJSONFile = (path: string, fileName: string) => {
   fs.readFile(path, 'utf8', (err: ErrnoException | null, data: string) => {
     if (err) {
-      // console.error(err)
       return;
     }
-    const data2 = JSON.parse(data);
-    // const json = {
-    //   fileName: JSON.parse(JSON.stringify(data2))
-    // };
+    const data2 = {
+      [fileName]: JSON.parse(data)
+    };
     console.log(data2);
   });
 };
