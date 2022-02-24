@@ -1,20 +1,24 @@
 import ErrnoException = NodeJS.ErrnoException;
+const toml = require('toml'); //TODO: Use import instead of require
+const fs = require('fs'); //TODO: Use import instead of require
 
-const toml = require('toml');
-const fs = require('fs');
-const path =
-  '/Users/deekshasharma/Desktop/mindgrep/config-loader/src/collect.toml';
-
-export const convertTomlToJson = () => {
-  fs.readFile(path, 'utf8', (err: ErrnoException | null, data: string) => {
-    if (err) {
-      // console.error(err)
-      return;
-    }
-    const data2 = toml.parse(data);
-    const json = {
-      collect: JSON.parse(JSON.stringify(data2))
-    };
-    console.log(json);
+export const convertTomlToJson = async (path: string, fileName: string) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, (err: ErrnoException | null, data: string) => {
+      if (err) reject(`Error handling file, ${err}`);
+      resolve({ [fileName]: JSON.parse(JSON.stringify(toml.parse(data))) });
+    });
   });
 };
+
+// export const readJSONFile = (path: string, fileName: string) => {
+//   fs.readFile(path, 'utf8', (err: ErrnoException | null, data: string) => {
+//     if (err) {
+//       return;
+//     }
+//     const data2 = {
+//       [fileName]: JSON.parse(data)
+//     };
+//     console.log(data2);
+//   });
+// };
