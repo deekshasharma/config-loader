@@ -1,11 +1,11 @@
-[batchSizes]
+[randomSizes]
   msearch = 200
   index = 200
   mget = 200
   get = 200
   search = 200
   bulk = 200
-[timeouts]
+[randomTimeouts]
   index = 30
   get = 30
   bulk = 30
