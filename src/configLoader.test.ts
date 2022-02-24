@@ -1,6 +1,7 @@
 import { tmpdir } from 'os';
 import fs, { mkdtemp } from 'fs';
 import { sep } from 'path';
+import rimraf from 'rimraf';
 import { findConfigFiles } from './configLoader';
 
 describe('Test findConfigFiles', () => {
@@ -20,7 +21,9 @@ describe('Test findConfigFiles', () => {
           expect(files.yaml).toHaveLength(1);
           expect(files.toml).toHaveLength(1);
         })
-        .finally(() => done());
+        .finally(() => {
+          rimraf(directory, () => done());
+        });
     });
   });
 
@@ -46,7 +49,9 @@ describe('Test findConfigFiles', () => {
               expect(files.yaml).toHaveLength(1);
               expect(files.toml).toHaveLength(1);
             })
-            .finally(() => done());
+            .finally(() => {
+              rimraf(directory, () => done());
+            });
         });
       });
     });
