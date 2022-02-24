@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { tmpdir } from 'os';
 import fs, { mkdtemp } from 'fs';
 import { sep } from 'path';
@@ -29,7 +28,6 @@ describe('Test findConfigFiles', () => {
     const tmpDir = tmpdir();
     const tmpDirPath = `${tmpDir}${sep}`;
     mkdtemp(tmpDirPath, (err, directory) => {
-      console.log(directory);
       if (err) throw err;
       expect(fs.existsSync(directory)).toBeTruthy();
       fs.closeSync(fs.openSync(`${directory}/one.json`, 'w'));
