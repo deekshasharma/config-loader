@@ -1,4 +1,3 @@
-import ErrnoException = NodeJS.ErrnoException;
 const toml = require('toml');
 const fs = require('fs');
 import yaml from 'js-yaml';
@@ -9,7 +8,7 @@ export const convertToJson = async (filePath: string) => {
   const fileName = path.basename(filePath, fileExtension);
 
   return new Promise((resolve, reject) => {
-    fs.readFile(filePath, (err: ErrnoException | null, data: string) => {
+    fs.readFile(filePath, (err: any, data: string) => {
       if (err) reject(`Error handling file, ${err}`);
       if (fileExtension === '.toml')
         resolve({ [fileName]: JSON.parse(JSON.stringify(toml.parse(data))) });
