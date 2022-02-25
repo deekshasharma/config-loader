@@ -2,7 +2,7 @@ import { tmpdir } from 'os';
 import fs, { mkdtemp } from 'fs';
 import { sep } from 'path';
 import rimraf from 'rimraf';
-import { findConfigFiles, yaml2Json } from './configLoader';
+import { findConfigFiles, yaml2Json } from '../configLoader';
 
 describe('Test findConfigFiles', () => {
   it('finds all files in flat directory', (done) => {

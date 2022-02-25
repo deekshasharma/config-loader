@@ -1,4 +1,4 @@
-import { convertToJson, yaml2Json } from './toJson';
+import { convertToJson } from './toJson';
 import path from 'path';
 import { findConfigFiles } from './configLoader';
 
@@ -19,9 +19,9 @@ findConfigFiles('./src').then((allFiles) => {
   });
 
   const allYamlPromises = yamlFiles.map((currentFile) => {
-    // const fileExtension = path.extname(currentFile);
-    // const fileName = path.basename(currentFile, fileExtension);
-    return yaml2Json(currentFile);
+    const fileExtension = path.extname(currentFile);
+    const fileName = path.basename(currentFile, fileExtension);
+    return convertToJson(currentFile, fileName, fileExtension);
   });
 
   const mergedConfigPromise = Promise.all([
