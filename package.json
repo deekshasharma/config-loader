@@ -1,7 +1,7 @@
 {
-  "name": "acme-middleware",
+  "name": "Config Loader",
   "version": "1.0.0",
-  "description": "",
+  "description": "Finds files (YAML, TOML, JSON) and merges into single JSON object",
   "main": "index.js",
   "scripts": {
     "test": "jest --config jest.config.ts",
@@ -14,7 +14,18 @@
     "prepare": "husky install"
   },
   "keywords": [],
-  "author": "deekshasharma",
+  "contributors": [
+    {
+      "name": "Deeksha Sharma",
+      "email": "deeksha.sharma25@gmail.com",
+      "url": "https://deeksha.dev"
+    },
+    {
+      "name": "Harit Himanshu",
+      "email": "devatwork@yahoo.com",
+      "url": "https://harit.dev"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.17",
