@@ -6,9 +6,7 @@ import { convertToJson } from '../toJson';
 describe('Test Toml2Json', () => {
   it('reads TOML file correctly', async () => {
     const config = await convertToJson(
-      './src/test/test-data/toml-collect.toml',
-      'toml-collect',
-      '.toml'
+      './src/test/test-data/toml-collect.toml'
     );
     expect(config).toHaveProperty('toml-collect', {
       batchSizes: {
@@ -33,11 +31,7 @@ describe('Test Toml2Json', () => {
 
 describe('Test Json2Json', () => {
   it('reads JSON file correctly', async () => {
-    const config = await convertToJson(
-      './src/test/test-data/json-sample.json',
-      'json-sample',
-      '.json'
-    );
+    const config = await convertToJson('./src/test/test-data/json-sample.json');
     expect(config).toHaveProperty('json-sample', {
       quiz: {
         sport: {
@@ -84,11 +78,7 @@ describe('Test Yaml2Json', () => {
       const json = { hello: 1, world: '2' };
       const jsonFilePath = `${directory}/${fileName}.yaml`;
       fs.writeFileSync(jsonFilePath, JSON.stringify(json));
-      const jsonObject = (await convertToJson(
-        jsonFilePath,
-        fileName,
-        'yaml'
-      )) as JsonType;
+      const jsonObject = (await convertToJson(jsonFilePath)) as JsonType;
       expect(Object.entries(jsonObject).length).toEqual(1);
       expect(jsonObject).toHaveProperty(fileName);
       const returnedJson = jsonObject[fileName];
@@ -123,11 +113,7 @@ describe('Test Yaml2Json', () => {
       };
       const jsonFilePath = `${directory}/${fileName}.yaml`;
       fs.writeFileSync(jsonFilePath, JSON.stringify(json));
-      const jsonObject = (await convertToJson(
-        jsonFilePath,
-        fileName,
-        'yaml'
-      )) as JsonType;
+      const jsonObject = (await convertToJson(jsonFilePath)) as JsonType;
       expect(Object.entries(jsonObject).length).toBe(1);
       const returnedJson = jsonObject[fileName];
       expect(returnedJson).toHaveProperty('hello', 1);

@@ -8,7 +8,7 @@ export const convertToJson = async (filePath: string) => {
   const fileName = path.basename(filePath, fileExtension);
 
   return new Promise((resolve, reject) => {
-    fs.readFile(path, (err: any, data: string) => {
+    fs.readFile(filePath, (err: any, data: string) => {
       if (err) reject(`Error handling file, ${err}`);
       if (fileExtension === '.toml')
         resolve({ [fileName]: JSON.parse(JSON.stringify(toml.parse(data))) });
