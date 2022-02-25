@@ -1,12 +1,12 @@
 const toml = require('toml');
 const fs = require('fs');
 import yaml from 'js-yaml';
+import path from 'path';
 
-export const convertToJson = async (
-  path: string,
-  fileName: string,
-  fileExtension: string
-) => {
+export const convertToJson = async (filePath: string) => {
+  const fileExtension = path.extname(filePath);
+  const fileName = path.basename(filePath, fileExtension);
+
   return new Promise((resolve, reject) => {
     fs.readFile(path, (err: any, data: string) => {
       if (err) reject(`Error handling file, ${err}`);
@@ -16,7 +16,9 @@ export const convertToJson = async (
         resolve({ [fileName]: JSON.parse(data) });
       else {
         resolve({
-          [fileName]: yaml.load(fs.readFileSync(path, { encoding: 'utf-8' }))
+          [fileName]: yaml.load(
+            fs.readFileSync(filePath, { encoding: 'utf-8' })
+          )
         });
       }
     });
