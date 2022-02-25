@@ -1,4 +1,14 @@
-
+# How to run
+- Either clone or fork the following repository `git@github.com:<YOUR_GITHUB_USER>/config-loader.git`.
+- Make sure you are using the LTS version of Node to get the project up and running without any issues. This code is tested on Node version `v16.13.2`
+- Install dependencies using `npm install`.
+- To test the implementation, run `npm test`. You should be able to run all the tests and they should pass. The `test/` directory contains the sample files (json, toml, yaml) which are being used by the test cases.
+- The main function `getConfig(path) `takes as parameter the path to start searching the files from. 
+It recursively searches all nested directories as well.
+- To run the function,  do the following
+  - Uncomment L22 in [index.ts](src/index.ts)
+  - On the command-line, run `npx ts-node src/index.ts`
+  - You should be able to get the JSON output on the console.
 
 # FAQs
 
