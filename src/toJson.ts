@@ -11,15 +11,13 @@ export const convertToJson = async (filePath: string) => {
     fs.readFile(filePath, (err: any, data: string) => {
       if (err) reject(`Error handling file, ${err}`);
       if (fileExtension === '.toml')
-        resolve({ [fileName]: JSON.parse(JSON.stringify(toml.parse(data))) });
+        //resolve({ [fileName]: JSON.parse(JSON.stringify(toml.parse(data))) });
+        resolve(JSON.parse(JSON.stringify(toml.parse(data))));
       else if (fileExtension === '.json')
-        resolve({ [fileName]: JSON.parse(data) });
+        // resolve({ [fileName]: JSON.parse(data) });
+        resolve(JSON.parse(data));
       else {
-        resolve({
-          [fileName]: yaml.load(
-            fs.readFileSync(filePath, { encoding: 'utf-8' })
-          )
-        });
+        resolve(yaml.load(fs.readFileSync(filePath, { encoding: 'utf-8' })));
       }
     });
   });
