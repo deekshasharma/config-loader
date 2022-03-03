@@ -1,0 +1,2 @@
+name: Testing Index YAML file contents
+on: [push]
