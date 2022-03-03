@@ -60,4 +60,4 @@ export const getConfig = (searchPath = './') => {
  * Uncomment to see the example usage of the getConfig() function
  */
 // eslint-disable-next-line no-console
-getConfig('./src').then((config) => console.log(JSON.stringify(result)));
+// getConfig('./src').then((config) => console.log(JSON.stringify(result)));
