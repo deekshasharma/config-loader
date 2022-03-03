@@ -20,9 +20,14 @@ const getNestedPath = (pathToFile: string) => {
 };
 
 function setNestedData(root: any, path: string, value: any) {
-  const paths = path.split('.');
-  const last_index = paths.length - 1;
-  paths.forEach(function (key, index) {
+  const directories = path.split('.');
+  const directoriesLength = directories.length - 1;
+  const directoriesWithoutIndex =
+    directories[directoriesLength] === 'index'
+      ? directories.slice(0, directoriesLength)
+      : directories;
+  const last_index = directoriesWithoutIndex.length - 1;
+  directoriesWithoutIndex.forEach(function (key, index) {
     if (!(key in root)) root[key] = {};
     if (index == last_index) root[key] = value;
     root = root[key];
