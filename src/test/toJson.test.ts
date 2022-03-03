@@ -128,7 +128,7 @@ describe('Test Yaml2Json', () => {
 });
 
 describe('Test namespaced keys', () => {
-  let json = { Hello: 'World' };
+  const json = { Hello: 'World' };
   it.skip('returns directory names in a path', () => {
     const getNestedPath = (pathToFile: string) => {
       const removeRelativePaths = (paths: string[]) =>
